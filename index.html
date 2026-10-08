@@ -55,6 +55,19 @@
   .btn-light:hover { background: var(--brand-sun); }
   .btn-max { background: #6A4BC4; color: #fff; }
   .btn-max:hover { background: #5A3DB0; }
+
+  /* Свечение-волна на кнопках Телеграма и Max: два кольца расходятся от кнопки */
+  .btn-primary { animation: wave-pion 2.6s ease-out infinite; }
+  .btn-max { animation: wave-violet 2.6s ease-out 1.1s infinite; }
+  @keyframes wave-pion {
+    0%   { box-shadow: 0 6px 22px rgba(201, 58, 90, .40), 0 0 0 0 rgba(201, 58, 90, .50), 0 0 0 0 rgba(201, 58, 90, .30); }
+    75%, 100% { box-shadow: 0 6px 22px rgba(201, 58, 90, .40), 0 0 0 11px rgba(201, 58, 90, 0), 0 0 0 21px rgba(201, 58, 90, 0); }
+  }
+  @keyframes wave-violet {
+    0%   { box-shadow: 0 6px 22px rgba(106, 75, 196, .45), 0 0 0 0 rgba(140, 110, 235, .55), 0 0 0 0 rgba(140, 110, 235, .32); }
+    75%, 100% { box-shadow: 0 6px 22px rgba(106, 75, 196, .45), 0 0 0 11px rgba(140, 110, 235, 0), 0 0 0 21px rgba(140, 110, 235, 0); }
+  }
+  .motion-off .btn-primary, .motion-off .btn-max { animation: none; }
   .btn-small { min-height: 44px; padding: 0 20px; font-size: 16px; }
   .btn-row { display: flex; flex-wrap: wrap; gap: 14px; }
 
@@ -687,6 +700,7 @@
   const motionListeners = [];
   const onMotion = fn => { motionListeners.push(fn); fn(motionPaused); };
   const setMotion = p => { motionPaused = p; motionListeners.forEach(fn => fn(p)); };
+  onMotion(p => document.documentElement.classList.toggle("motion-off", p));
 
   /* ================= ОТЗЫВЫ ТУРИСТОВ =================
      Сюда вносятся настоящие отзывы. Каждый отзыв - одна строка в списке REVIEWS:
